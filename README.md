@@ -6,14 +6,14 @@ Build a simple program to find a way to find treasure using PHP.
 
 Create a simple map using array
 ``` 
-	$map = [
-		['#', '#', '#', '#', '#', '#', '#', '#'],
-		['#', '.', '.', '.', '.', '.', '.', '#'],
-		['#', '.', '#', '#', '#', '.', '.', '#'],
-		['#', '.', '.', '.', '#', '.', '#', '#'],
-		['#', 'X', '#', '.', '.', '.', '.', '#'],
-		['#', '#', '#', '#', '#', '#', '#', '#']
-	];
+$map = [
+	['#', '#', '#', '#', '#', '#', '#', '#'],
+	['#', '.', '.', '.', '.', '.', '.', '#'],
+	['#', '.', '#', '#', '#', '.', '.', '#'],
+	['#', '.', '.', '.', '#', '.', '#', '#'],
+	['#', 'X', '#', '.', '.', '.', '.', '#'],
+	['#', '#', '#', '#', '#', '#', '#', '#']
+];
 ``` 
 (#) represents an obstacle.
 (.) represents a clear path.
@@ -34,54 +34,54 @@ Player is in 4,1
 ## Get Clear Path
 
 ``` 
-	$clear = [];
-	foreach ($map as $i => $row) { // ROWS
-		foreach ($row as $j => $col) { // COLUMNS
-			if ($col == ".") {
-				$clear[] = $i.",".$j;
-			}
-			// GET PLAYER POSITION
-            if ($col == "X") {
-				$player = $i.",".$j;
-			}
+$clear = [];
+foreach ($map as $i => $row) { // ROWS
+	foreach ($row as $j => $col) { // COLUMNS
+		if ($col == ".") {
+			$clear[] = $i.",".$j;
 		}
-    }
+		// GET PLAYER POSITION
+        if ($col == "X") {
+			$player = $i.",".$j;
+		}
+	}
+}
 ``` 
 
 ## Set Treasure Random Position
 
 ``` 
-    $random = array_rand($clear);
-	$treasure = $clear[$random];
-	$t = explode(",", $treasure);
-	$map[$t[0]][$t[1]] = '$';
+$random = array_rand($clear);
+$treasure = $clear[$random];
+$t = explode(",", $treasure);
+$map[$t[0]][$t[1]] = '$';
 ``` 
 
 ## Set Coordinate Near Player
 
 ``` 
-    $p = explode(",", $player);
-	$y = $p[0];
-	$x = $p[1];
-	$left = $y.",".($x-1);
-	$up = ($y-1).",".$x;
-	$right = $y.",".($x+1);
-	$down = ($y+1).",".$x;
+$p = explode(",", $player);
+$y = $p[0];
+$x = $p[1];
+$left = $y.",".($x-1);
+$up = ($y-1).",".$x;
+$right = $y.",".($x+1);
+$down = ($y+1).",".$x;
 ``` 
 
 ## Get New Direction
 
 ``` 
-    // GET DIRECTION
-	do{
-		$direction = [$left, $up, $right, $down];
-		$direction_rand = array_rand($direction);
-		$direction_new = $direction[$direction_rand];
+// GET DIRECTION
+do{
+	$direction = [$left, $up, $right, $down];
+	$direction_rand = array_rand($direction);
+	$direction_new = $direction[$direction_rand];
 
-		// CEK CLEAR PATH DIRECTION
-	}while(!in_array($direction_new, $clear));
+	// CEK CLEAR PATH DIRECTION
+}while(!in_array($direction_new, $clear));
 		
-	$player = $direction_new;
+$player = $direction_new;
 ``` 
 
 ## Highlights
@@ -117,4 +117,15 @@ $$$.#.##
 #.#....#
 ########
 Congratulations
+``` 
+
+## How to Run
+
+Download the following file:
+``` 
+treasure-hunt.php
+``` 
+Go to path where you save, then do the following command:
+``` 
+php treasure-hunt.php
 ``` 
